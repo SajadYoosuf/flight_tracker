@@ -6,6 +6,7 @@ import '../../core/constants/colors.dart';
 import '../providers/flight_provider.dart';
 import '../widgets/flight_card.dart';
 import 'flight_detail_page.dart';
+import 'favorites_page.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -51,12 +52,28 @@ class _DashboardPageState extends State<DashboardPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Hello Traveler 👋',
-            style: TextStyle(
-              fontSize: 16,
-              color: AppColors.textSecondary,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'Hello Traveler 👋',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: AppColors.textSecondary,
+                ),
+              ),
+              IconButton(
+                onPressed: () {
+                   Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const FavoritesPage(),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.favorite, color: AppColors.error),
+              ),
+            ],
           ),
           const SizedBox(height: 8),
           const Text(

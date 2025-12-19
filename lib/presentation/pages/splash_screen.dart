@@ -21,9 +21,13 @@ class _SplashScreenState extends State<SplashScreen> {
           MaterialPageRoute(builder: (_) => const MainScreen()),
         );
       }
+      
+      
     });
   }
+  void addTwoSum() {
 
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

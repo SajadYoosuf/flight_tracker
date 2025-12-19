@@ -25,5 +25,24 @@ class Flight {
     this.gate,
     this.terminal,
     this.delayMinutes,
+    this.aircraftModel,
+    this.originCity,
+    this.destinationCity,
+    this.duration,
+    this.distance,
+    this.originLat,
+    this.originLng,
+    this.destLat,
+    this.destLng,
   });
+
+  final String? aircraftModel;
+  final String? originCity;
+  final String? destinationCity;
+  final String? duration;
+  final int? distance;
+  final double? originLat;
+  final double? originLng;
+  final double? destLat;
+  final double? destLng;
 }
