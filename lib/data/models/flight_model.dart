@@ -1,4 +1,5 @@
 import '../../domain/entities/flight.dart';
+import '../../core/constants/airport_coordinates.dart';
 
 class FlightModel extends Flight {
   FlightModel({
@@ -80,10 +81,10 @@ class FlightModel extends Flight {
       destinationCity: json['apdstci'],
       duration: json['duration'],
       distance: json['distance'],
-      originLat: json['aporgla']?.toDouble(),
-      originLng: json['aporglo']?.toDouble(),
-      destLat: json['apdstla']?.toDouble(),
-      destLng: json['apdstlo']?.toDouble(),
+      originLat: (json['aporgla']?.toDouble()) ?? AirportCoordinates.getCoordinates(json['aporgia'] ?? '')?['lat'],
+      originLng: (json['aporglo']?.toDouble()) ?? AirportCoordinates.getCoordinates(json['aporgia'] ?? '')?['lng'],
+      destLat: (json['apdstla']?.toDouble()) ?? AirportCoordinates.getCoordinates(json['apdstia'] ?? '')?['lat'],
+      destLng: (json['apdstlo']?.toDouble()) ?? AirportCoordinates.getCoordinates(json['apdstia'] ?? '')?['lng'],
     );
   }
 
