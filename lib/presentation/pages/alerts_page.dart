@@ -139,6 +139,26 @@ class AlertsPage extends StatelessWidget {
           });
        }
        
+       // Scheduled Alerts
+       if (status == 'scheduled') {
+          generatedAlerts.add({
+            'title': 'Flight ${flight.flightNumber} Scheduled',
+            'message': 'Scheduled to depart from ${flight.departureAirport} at ${_formatTime(flight.departureTime)}.',
+            'time': 'Scheduled',
+            'type': 'scheduled',
+          });
+       }
+
+       // Cancelled Alerts
+       if (status == 'cancelled') {
+          generatedAlerts.add({
+            'title': 'Flight ${flight.flightNumber} Cancelled',
+            'message': 'Flight to ${flight.arrivalAirport} has been cancelled.',
+            'time': 'Cancelled',
+            'type': 'cancelled',
+          });
+       }
+       
        // Delay Alerts
        if (flight.delayMinutes != null && flight.delayMinutes! > 0) {
           generatedAlerts.add({
@@ -162,6 +182,11 @@ class AlertsPage extends StatelessWidget {
     return generatedAlerts;
   }
 
+  String _formatTime(DateTime? time) {
+    if (time == null) return 'Unknown';
+    return "${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}";
+  }
+
   Color _getAlertColor(String type) {
     switch (type) {
       case 'departure':
@@ -169,7 +194,10 @@ class AlertsPage extends StatelessWidget {
       case 'arrival':
         return AppColors.success;
       case 'late':
+      case 'cancelled':
         return AppColors.error;
+      case 'scheduled':
+        return AppColors.secondary;
       default:
         return AppColors.warning;
     }
@@ -183,6 +211,10 @@ class AlertsPage extends StatelessWidget {
         return Icons.flight_land;
       case 'late':
         return Icons.access_time_filled;
+      case 'cancelled':
+        return Icons.cancel;
+      case 'scheduled':
+        return Icons.schedule;
       default:
         return Icons.info_outline;
     }

@@ -23,7 +23,10 @@ class _DashboardPageState extends State<DashboardPage> {
     super.initState();
     // Load initial data
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<FlightProvider>().loadFlights();
+      final provider = context.read<FlightProvider>();
+      if (provider.flights.isEmpty) {
+        provider.loadFlights();
+      }
     });
   }
 
