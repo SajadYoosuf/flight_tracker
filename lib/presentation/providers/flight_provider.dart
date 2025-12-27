@@ -16,13 +16,17 @@ class FlightProvider with ChangeNotifier {
 
   FlightProvider({required this.repository});
 
+  List<Flight>? _allFlights;
+
   Future<void> loadFlights() async {
     _isLoading = true;
     _error = null;
     notifyListeners();
 
     try {
-      _flights = await repository.getFlights();
+      final results = await repository.getFlights();
+      _flights = results;
+      _allFlights = results;
     } catch (e) {
       _error = e.toString();
     } finally {
@@ -31,22 +35,29 @@ class FlightProvider with ChangeNotifier {
     }
   }
 
-  Future<void> searchFlights(String query) async {
+  void searchFlights(String query) {
     _isLoading = true;
     _error = null;
-    notifyListeners();
-
-    try {
-      if (query.isEmpty) {
-        await loadFlights();
-      } else {
-        _flights = await repository.searchFlights(query);
-      }
-    } catch (e) {
-      _error = e.toString();
-    } finally {
-      _isLoading = false;
-      notifyListeners();
+    
+    // Safety check for hot-reload or uninitialized state
+    if (_allFlights == null) {
+      _allFlights = List.from(_flights);
     }
+    
+    if (query.isEmpty) {
+      _flights = List.from(_allFlights!);
+    } else {
+      final q = query.toLowerCase();
+      _flights = _allFlights!.where((flight) {
+        return flight.flightNumber.toLowerCase().contains(q) ||
+               flight.departureAirport.toLowerCase().contains(q) ||
+               flight.arrivalAirport.toLowerCase().contains(q) ||
+               flight.departureIata.toLowerCase().contains(q) ||
+               flight.arrivalIata.toLowerCase().contains(q);
+      }).toList();
+    }
+    
+    _isLoading = false;
+    notifyListeners();
   }
 }

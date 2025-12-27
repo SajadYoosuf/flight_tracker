@@ -9,7 +9,7 @@ abstract class FlightRemoteDataSource {
 }
 
 class FlightRemoteDataSourceImpl implements FlightRemoteDataSource {
-  final String _apiKey = 'fa1e134807msh7db3c185f348abbp166e6cjsn96c33a712066';
+  final String _apiKey = 'efcf7804femsh56f201798fd8549p1323efjsn87d85d03fdf5';
   final String _apiHost = 'flymat-tracker-api.p.rapidapi.com';
   
   // Kerala Airports with Coordinates

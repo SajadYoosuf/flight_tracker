@@ -90,18 +90,13 @@ class _DashboardPageState extends State<DashboardPage> {
           const SizedBox(height: 24),
           TextField(
             controller: _searchController,
-            onSubmitted: (value) {
+            onChanged: (value) {
                context.read<FlightProvider>().searchFlights(value);
             },
             decoration: InputDecoration(
               hintText: 'Search flight number, route...',
               prefixIcon: const Icon(Icons.search),
-              suffixIcon: IconButton(
-                icon: const Icon(Icons.tune),
-                onPressed: () {
-                   // Filter dialog logic
-                },
-              ),
+            
             ),
           ),
         ],
